@@ -1,0 +1,107 @@
+<div class="main-innerpage w-100 float-start mt-5">
+    <div class="container">
+        <div class="innerpages">
+            <h2>Proceed to payment</h2>
+            <span>Home &gt; <span class="font-color-pink">Proceed to payment</span></span>
+        </div>
+    </div>
+</div>
+<div class="w-100 float-start payment_main">
+    <div class="container">
+        <div class="payment_main_inner">
+            <div class="plan_section">
+                <div class="header">
+                    <a class="header_link" (click)="goToBack()">
+                        <svg class="icon" focusable="false" width="12" height="12" viewBox="0 0 16 16">
+                            <path
+                                d="M3.417 7H15a1 1 0 0 1 0 2H3.417l4.591 4.591a1 1 0 0 1-1.415 1.416l-6.3-6.3a1 1 0 0 1 0-1.414l6.3-6.3A1 1 0 0 1 8.008 2.41z"
+                                fill-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                </div>
+                <div class="plan_summry">
+                    <h5>{{this.PlanDetails.planName}}</h5>
+                    <div class="plan_inner">
+                        <label>{{this.PlanDetails.charges}}<span>per<br>{{this.PlanDetails.intervalCount}}
+                                {{this.PlanDetails.interval}}</span></label>
+                    </div>
+                </div>
+
+                <div class="plan_list">
+                    <div class="selected_plan">
+                        <img src="../assets/images/Logo-Dating.png" class="logo">
+                        <div class="text">
+                            <div class="plan_name">
+                                <label>{{this.PlanDetails.planName}} <span class="badge"></span></label>
+                                <label class="small">{{this.PlanDetails.planDescription}}</label>
+                            </div>
+                            <div>
+                                <h6 class="price">{{this.PlanDetails.charges}}</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="stripe_section">
+                <div *ngIf="stripeCustomerId != null">
+                    <div class="text-center">
+                        <button *ngIf="!showAddCard" class="main-btn add_card_btn text-center" title="Make Payment"
+                            (click)="showCardList()">
+                            Pay with existing card
+                        </button>
+                    </div>
+                    <div *ngIf="showAddCard" class="w-100">
+                        <ul class="card_list mt-3" *ngFor="let item of cardList">
+                            <li id={{item.id}} (click)="Addclass(item.id)">
+                                <a href="javascript:;">
+                                    <div class="row card_details_main">
+                                        <div class="card_details">
+                                            <img class="img-fluid" src="{{baseURL}}{{item.card.cardLogo}}" />
+                                            <input disabled type="text"
+                                                placeholder="**** **** **** {{item.card.last4}}">
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <button type="submit" (click)="pay()" class="payment-submit">Pay</button>
+                    </div>
+                    <p class="or_devider">OR</p>
+                    <div class="add_card_main text-center">
+                        
+                    </div>
+                </div>
+                <div  class="formdata mt-3 w-100">
+                    <form id="payment-form" class="mt-5">
+                        <!-- <form id="stripe-card-form"> -->
+                        <div class="row">
+                            <div class="col-md-12 mb-2">
+                                <div id="card-number-element" class="form-control"></div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div id="card-cardExpiry-element" class="form-control"></div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div id="card-cardCvc-element" class="form-control"></div>
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <div id="card-zip-element" class="form-control">
+                                    <input type="number" placeholder="12345" maxlength="5" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- </form> -->
+                        <div id="error-messages"></div>
+                        <div id="pay-button"></div>
+                        <button type="submit" id="btnSubmit" class="payment-submit">Pay</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>
